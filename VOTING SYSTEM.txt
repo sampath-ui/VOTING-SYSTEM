@@ -1,0 +1,86 @@
+#include <LiquidCrystal_I2C.h>
+int p1=2;
+int p2=3;
+int p3=4;
+int p4=5;
+int led1=13;
+int led2=12;
+int led3=11;
+int led4=10;
+//define I2C address......
+LiquidCrystal_I2C lcd(0x27,16,2);
+void setup()
+{
+  lcd.init();
+  lcd.clear();
+  lcd.backlight();
+  lcd.setCursor(2,0);
+  lcd.print("ENTER YOUR");
+  lcd.setCursor(2,1);
+  lcd.print("VALUEBLE VOTE");
+  pinMode(led1, OUTPUT);
+  pinMode(led2, OUTPUT);
+  pinMode(led3, OUTPUT);
+  pinMode(led4, OUTPUT);
+ pinMode(p1, INPUT_PULLUP);
+ pinMode(p2, INPUT_PULLUP);
+ pinMode(p3, INPUT_PULLUP);
+ pinMode(p4, INPUT_PULLUP);
+  Serial.begin(9600);
+}
+void loop()
+{
+ int poll1=digitalRead(p1);
+ int poll2=digitalRead(p2);
+ int poll3=digitalRead(p3);
+ int poll4=digitalRead(p4);
+  if(poll1==HIGH)
+  {
+    lcd.clear();
+    lcd.setCursor(2,0);
+    lcd.print("BJP");
+    Serial.println("BJP");
+    delay(100);
+    digitalWrite(led1,HIGH);
+    digitalWrite(led2,LOW);
+    digitalWrite(led3,LOW);
+    digitalWrite(led4,LOW);
+  }
+  if(poll2==HIGH)
+  {
+    lcd.clear();
+    lcd.setCursor(2,0);
+    lcd.print("CJP");
+    Serial.println("CJP");
+    digitalWrite(led1,LOW);
+    digitalWrite(led2,HIGH);
+    digitalWrite(led3,LOW);
+    digitalWrite(led4,LOW);
+    delay(100);
+  }
+  if(poll3==HIGH)
+  {
+    lcd.clear();
+    lcd.setCursor(2,0);
+    lcd.print("CONGRESS");
+    Serial.println("CONGRESS");
+    digitalWrite(led1,LOW);
+    digitalWrite(led2,LOW);
+    digitalWrite(led3,HIGH);
+    digitalWrite(led4,LOW);
+    delay(100);
+  }
+  if(poll4==HIGH)
+  {
+    lcd.clear();
+    lcd.setCursor(2,0);
+    lcd.print("NOTA");
+    Serial.println("NOTA");
+    digitalWrite(led1,LOW);
+    digitalWrite(led2,LOW);
+    digitalWrite(led3,LOW);
+    digitalWrite(led4,HIGH);
+    delay(100);
+  }
+    
+}
